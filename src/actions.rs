@@ -8,7 +8,7 @@ pub struct CharacterInventoryData {
     pub mailbox: Option<Vec<String>>,
     pub equip: Vec<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub bank: Option<HashMap<i32, Vec<String>>>,
+    pub bank: Option<HashMap<String, Vec<String>>>,
     pub money: u64,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub guild: Option<String>,
