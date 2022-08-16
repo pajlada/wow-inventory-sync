@@ -9,7 +9,7 @@ serde-lua-table = { git = "https://github.com/Nerixyz/serde-lua-table.git", tag 
 serde = { version = "1.0.143", features = ["derive"] }
 anyhow = "1"
 crossbeam-channel = "0.5.5"
-notify = "5.0.0-pre.15"
+notify = "5.0.0-pre.16"
 tokio = { version = "1", features = ["full"] }
 env_logger = "^0.9"
 log = "0.4"
