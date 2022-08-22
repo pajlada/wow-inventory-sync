@@ -43,7 +43,7 @@ impl Account {
             }
         };
         {
-            let mut bagsync_db: HashMap<String, Value> = (&lua.globals()).get("BagSyncDB")?;
+            let mut bagsync_db: HashMap<String, Value> = lua.globals().get("BagSyncDB")?;
 
             for inventory_set in inventory_setters {
                 let inventory_data_value: Value =
