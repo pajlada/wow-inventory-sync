@@ -26,7 +26,7 @@ fn inventory_db_updated(
 
     let (mut lua, inventory_setters) = current_account.get_inventory_setters()?;
 
-    for (into_account_name, into_account) in &*accounts {
+    for (into_account_name, into_account) in accounts {
         if account_name == into_account_name {
             continue;
         }
@@ -195,5 +195,5 @@ async fn main() -> Result<()> {
         .filter_module(module_path!(), log_level)
         .init();
 
-    return run(wtf_path, &accounts).await;
+    run(wtf_path, &accounts).await
 }
