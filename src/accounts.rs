@@ -131,7 +131,8 @@ pub fn load(wtf_path: &str, account_names: &[&str]) -> Result<HashMap<String, Ac
     let mut accounts: HashMap<String, Account> = HashMap::new();
     let wtf_path = Path::new(wtf_path);
     for account_name in account_names {
-        let account_dir = wtf_path.join(account_name);
+        let account_dir = wtf_path.join("Account").join(account_name);
+        log::debug!("Loading account {account_name} from {account_dir:?}");
         let acc = accounts.entry(account_name.to_string()).or_insert(Account {
             name: account_name.to_string(),
             realms: HashMap::new(),

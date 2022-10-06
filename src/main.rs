@@ -1,4 +1,4 @@
-use clap::{Arg, Command};
+use clap::{Arg, ArgAction, Command};
 use std::fs;
 
 use std::collections::HashMap;
@@ -118,70 +118,70 @@ async fn run(wtf_path: &str, accounts_to_sync: &[&str]) -> Result<()> {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let matches = Command::new(clap::crate_name!())
-        .version(clap::crate_version!())
-        .author(clap::crate_authors!())
-        .about(clap::crate_description!())
-        .arg(
-            Arg::new("config")
-                .short('c')
-                .long("config")
-                .value_name("FILE")
-                .help("Path to config file to use")
-                .default_value("config.json")
-                .takes_value(true),
-        )
-        .arg(
-            Arg::new("v")
-                .short('v')
-                .multiple_occurrences(true)
-                .help("Sets the level of verbosity"),
-        )
-        .arg(
-            Arg::new("fix")
-                .long("fix")
-                .help("Try to fix the issues found"),
-        )
-        .arg(
-            Arg::new("repo")
-                .long("repo")
-                .multiple_occurrences(true)
-                .help("Target GitHub repository")
-                .takes_value(true),
-        )
-        .arg(
-            Arg::new("wtf_path")
-                .long("wtf_path")
-                .help("Path to the WTF directory (e.g. /home/pajlada/World of Warcraft/_classic_/WTF)")
-                .takes_value(true),
-        )
-        .arg(
-            Arg::new("account")
-                .long("account")
-                .multiple_occurrences(true)
-                .help("Name of account to include")
-                .takes_value(true),
-        )
-        .arg(
-            Arg::new("organization")
-                .long("organization")
-                .alias("org")
-                .multiple_occurrences(true)
-                .help("Target GitHub organization")
-                .takes_value(true),
-        )
-        .get_matches();
+    let matches =
+        Command::new(clap::crate_name!())
+            .version(clap::crate_version!())
+            .author(clap::crate_authors!())
+            .about(clap::crate_description!())
+            .arg(
+                Arg::new("config")
+                    .short('c')
+                    .long("config")
+                    .value_name("FILE")
+                    .help("Path to config file to use")
+                    .default_value("config.json"),
+            )
+            .arg(
+                Arg::new("verbose")
+                    .short('v')
+                    .long("verbose")
+                    .action(ArgAction::Count)
+                    .help("Sets the level of verbosity"),
+            )
+            .arg(
+                Arg::new("fix")
+                    .long("fix")
+                    .action(ArgAction::SetTrue)
+                    .help("Try to fix the issues found"),
+            )
+            .arg(
+                Arg::new("repo")
+                    .long("repo")
+                    .action(ArgAction::Append)
+                    .help("Target GitHub repository"),
+            )
+            .arg(Arg::new("wtf_path").required(true).help(
+                "Path to the WTF directory (e.g. /home/pajlada/World of Warcraft/_classic_/WTF)",
+            ))
+            .arg(
+                Arg::new("account")
+                    .long("account")
+                    .action(ArgAction::Append)
+                    .help("Name of account to include"),
+            )
+            .arg(
+                Arg::new("organization")
+                    .long("organization")
+                    .alias("org")
+                    .action(ArgAction::Append)
+                    .help("Target GitHub organization"),
+            )
+            .get_matches();
 
-    let log_level = match matches.occurrences_of("v") {
+    let log_level = match matches.get_count("verbose") {
         0 => log::LevelFilter::Info,
         1 => log::LevelFilter::Debug,
         _ => log::LevelFilter::Trace,
     };
 
-    let wtf_path: &str = matches
-        .value_of("wtf_path")
+    let wtf_path = matches
+        .get_one::<String>("wtf_path")
         .ok_or_else(|| anyhow::anyhow!("Missing required wtf_path parameter"))?;
-    let accounts: Vec<&str> = matches.values_of("account").unwrap_or_default().collect();
+    let accounts: Vec<&str> = matches
+        .get_many::<String>("account")
+        .unwrap_or_default()
+        .map(|v| v.as_str())
+        .collect::<Vec<_>>();
 
     if accounts.len() < 2 {
         return Err(anyhow::anyhow!(
