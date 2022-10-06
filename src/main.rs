@@ -77,10 +77,8 @@ async fn run(wtf_path: &str, accounts_to_sync: &[&str]) -> Result<()> {
 
     let mut watcher = notify::recommended_watcher(file_notifier::new(tx))?;
 
-        println!("aaaaa");
     let accounts = accounts::load(wtf_path, accounts_to_sync)?;
 
-        println!("a");
     // Watch all account SavedVariables dir
     for (account_name, account) in &accounts {
         let savedvariables_dir = account.dir.join("SavedVariables");
@@ -152,11 +150,9 @@ async fn main() -> Result<()> {
                     .action(ArgAction::Append)
                     .help("Target GitHub repository"),
             )
-            .arg(
-                Arg::new("wtf_path")
-                .required(true)
-                .help( "Path to the WTF directory (e.g. /home/pajlada/World of Warcraft/_classic_/WTF)"),
-                )
+            .arg(Arg::new("wtf_path").required(true).help(
+                "Path to the WTF directory (e.g. /home/pajlada/World of Warcraft/_classic_/WTF)",
+            ))
             .arg(
                 Arg::new("account")
                     .long("account")
@@ -177,8 +173,6 @@ async fn main() -> Result<()> {
         1 => log::LevelFilter::Debug,
         _ => log::LevelFilter::Trace,
     };
-
-    println!("log level: {log_level:?}");
 
     let wtf_path = matches
         .get_one::<String>("wtf_path")
