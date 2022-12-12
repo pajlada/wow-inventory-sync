@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 mlua = {version = "0.8.6", features = ["lua53", "serialize"]}
 serde-lua-table = { git = "https://github.com/Nerixyz/serde-lua-table.git", tag = "v0.1.2" }
-serde = { version = "1.0.149", features = ["derive"] }
+serde = { version = "1.0.150", features = ["derive"] }
 anyhow = "1"
 crossbeam-channel = "0.5.6"
 notify = "5.0.0"
