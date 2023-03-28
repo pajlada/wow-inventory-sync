@@ -10,7 +10,7 @@ serde = { version = "1.0.159", features = ["derive"] }
 anyhow = "1.0.70"
 crossbeam-channel = "0.5.7"
 notify = "5.1.0"
-tokio = { version = "1.26.0", features = ["full"] }
+tokio = { version = "1.27.0", features = ["full"] }
 env_logger = "0.10.0"
 log = "0.4.17"
 clap = { version = "4.1.14", features = ["cargo"] }
