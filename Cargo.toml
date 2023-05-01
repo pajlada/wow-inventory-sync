@@ -7,7 +7,7 @@ edition = "2021"
 mlua = {version = "0.8.8", features = ["lua53", "serialize"]}
 serde-lua-table = { git = "https://github.com/Nerixyz/serde-lua-table.git", tag = "v0.1.2" }
 serde = { version = "1.0.160", features = ["derive"] }
-anyhow = "1.0.70"
+anyhow = "1.0.71"
 crossbeam-channel = "0.5.8"
 notify = "5.1.0"
 tokio = { version = "1.28.0", features = ["full"] }
