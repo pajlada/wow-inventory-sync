@@ -16,7 +16,7 @@ jobs:
       matrix:
         os: [ ubuntu ]
     steps:
-      - uses: actions/checkout@v3.5.3
+      - uses: actions/checkout@v3.6.0
       - name: Install lua (Ubuntu)
         if: startsWith(matrix.os, 'ubuntu')
         run: sudo apt-get update && sudo apt-get -y install liblua5.3-dev
