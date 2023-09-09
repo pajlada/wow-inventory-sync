@@ -21,7 +21,7 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu')
         run: sudo apt-get update && sudo apt-get -y install liblua5.3-dev
 
-      - uses: hecrj/setup-rust-action@v1.4.1
+      - uses: hecrj/setup-rust-action@v2.0.0
 
       - uses: Swatinem/rust-cache@v2.6.2
         with:
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.6.0
-      - uses: hecrj/setup-rust-action@v1.4.1
+      - uses: hecrj/setup-rust-action@v2.0.0
         with:
           rust-version: stable
           components: rustfmt
@@ -47,7 +47,7 @@ jobs:
       - name: Install lua
         run: sudo apt-get update && sudo apt-get -y install liblua5.3-dev
 
-      - uses: hecrj/setup-rust-action@v1.4.1
+      - uses: hecrj/setup-rust-action@v2.0.0
         with:
           rust-version: stable
           components: clippy
