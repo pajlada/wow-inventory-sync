@@ -23,7 +23,7 @@ jobs:
 
       - uses: hecrj/setup-rust-action@v2.0.0
 
-      - uses: Swatinem/rust-cache@v2.7.1
+      - uses: Swatinem/rust-cache@v2.7.2
         with:
           key: ${{ runner.os }}
 
@@ -52,7 +52,7 @@ jobs:
           rust-version: stable
           components: clippy
 
-      - uses: Swatinem/rust-cache@v2.7.1
+      - uses: Swatinem/rust-cache@v2.7.2
         with:
           key: lint
 
